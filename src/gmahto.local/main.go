@@ -2,6 +2,13 @@ package main
 
 import "./print"
 
+const (
+	Enter  = "enter"
+	Exit   = "exit"
+	Before = "before"
+	After  = "after"
+)
+
 type salutation struct {
 	name     string
 	greeting string
@@ -24,18 +31,53 @@ func printMessage(message *salutation, printer print.Printer) {
 
 }
 
+func getActionMsg(action, name string) (message string) {
+
+	switch action {
+
+	case Enter:
+		message = "Enter #" + name
+
+	case Exit:
+		message = "Exit #" + name
+
+	case Before:
+		message = "Before #" + name
+
+	case After:
+		message = "After #" + name
+
+	default:
+		message = "-----------------"
+
+	}
+
+	return
+
+}
+
 func main() {
 
 	var message = salutation{"User", "Hello GO"}
 	// a, b := 1, 2 // Declaration and assignment.
 
-	print.PrintLine("Before calling #test()")
+	updateMsg := true
+
+	if msg := getActionMsg(Before, "updateMessage"); updateMsg {
+
+		print.PrintLine(msg)
+
+	}
 
 	printMessage(&message, print.PrintLine)
 
-	print.PrintLine("After calling #test()")
+	if msg := getActionMsg(After, "updateMessage"); updateMsg {
 
-	updateMessage(&message)
+		print.PrintLine(msg)
+
+		updateMessage(&message)
+
+	}
 
 	printMessage(&message, print.PrintLine)
 
