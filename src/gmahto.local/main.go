@@ -1,7 +1,8 @@
 package main
 
-import "./print"
+import "gmahto.local/print"
 
+// Action constants
 const (
 	Enter  = "enter"
 	Exit   = "exit"
@@ -9,25 +10,64 @@ const (
 	After  = "after"
 )
 
-type salutation struct {
-	name     string
-	greeting string
+const (
+	informal = "informal"
+	formal   = "formal"
+)
+
+func createMessages(name string) (message, formalMsg Salutation) {
+
+	// var greetings map[string]string
+	// greetings = make(map[string]string)
+	// greetings[informal] = "Hi!"
+	// greetings[formal] = "Hello!"
+
+	greetings := map[string]string{
+		informal: "Hi!",
+		formal:   "Hello!",
+	}
+
+	message = Salutation{name: name, greeting: greetings[informal]}
+
+	formalMsg = Salutation{name, greetings[formal]}
+
+	return
+
 }
 
-func updateMessage(message *salutation) {
+func updateMessage(message *Salutation) {
 
-	// message.name = "Gaurav"
-	// message.greeting = "Hello!"
+	// *message = Salutation{name: "Gaurav", greeting: "Bye!"}
 
-	*message = salutation{name: "Gaurav", greeting: "Hello!"}
+	message.greeting = "Bye!"
 
 	// fmt.Println(*message, a, b)
 
 }
 
-func printMessage(message *salutation, printer print.Printer) {
+func printMessage(message *Salutation, printer print.Printer) {
 
 	printer(message.greeting, message.name)
+
+}
+
+func printMessages(messages []*Salutation, printer print.Printer) {
+
+	for _, message := range messages {
+
+		printer(message.greeting, message.name)
+
+	}
+
+}
+
+func printMessageNTimes(message *Salutation, printer print.Printer, times int) {
+
+	for i := 0; i < times; i++ {
+
+		printer(message.greeting, message.name)
+
+	}
 
 }
 
@@ -58,7 +98,7 @@ func getActionMsg(action, name string) (message string) {
 
 func main() {
 
-	var message = salutation{"User", "Hello GO"}
+	var message, formalMsg = createMessages("Gaurav")
 	// a, b := 1, 2 // Declaration and assignment.
 
 	updateMsg := true
@@ -80,5 +120,9 @@ func main() {
 	}
 
 	printMessage(&message, print.PrintLine)
+
+	// printMessageNTimes(&message, print.PrintLine, 1)
+
+	printMessages([]*Salutation{&message, &formalMsg}, print.PrintLine)
 
 }
