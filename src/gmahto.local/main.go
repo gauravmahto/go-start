@@ -14,25 +14,41 @@ func main() {
 
 	if msg := utils.GetActionMsg(utils.ActionBefore, "updateMessage"); updateMsg {
 
-		utils.Line(msg)
+		utils.PrintLine(msg)
 
 	}
 
-	message.PrintMessage(utils.Line)
+	message.PrintMessage(utils.PrintLine)
 
 	if msg := utils.GetActionMsg(utils.ActionAfter, "updateMessage"); updateMsg {
 
-		utils.Line(msg)
+		utils.PrintLine(msg)
 
 		message.UpdateMessage("Bye!")
 
 	}
 
-	message.PrintMessage(utils.Line)
+	message.PrintMessage(utils.PrintLine)
 
-	// message.PrintMessageNTimes(utils.Line, 1)
+	// A non-bufferred channel named 'done' and accepting a boolean value.
+	done := make(chan bool)
+
+	// A go routine.
+	go func() { // Anonymous function, acting as a closure.
+
+		utils.PrintLine("-- GO ROUTINE --")
+		message.PrintMessageNTimes(utils.PrintLine, 1)
+		utils.PrintLine("-- GO ROUTINE --")
+
+		done <- true // Send boolean true to the 'done' channel.
+
+	}() // Execute the anonymous function.
 
 	messages := greeting.Messages{message, formalMsg}
-	greeting.PrintMessages(messages, utils.Line)
+	greeting.PrintMessages(messages, utils.PrintLine)
+
+	// Read from 'done' channel. Will block the current execution,
+	// until data is available on the 'done' channel to be read.
+	<-done
 
 }

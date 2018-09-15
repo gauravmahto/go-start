@@ -14,8 +14,8 @@ func Print(message ...interface{}) {
 
 }
 
-// Line Prints a message on a new line.
-func Line(message ...interface{}) {
+// PrintLine Prints a message on a new line.
+func PrintLine(message ...interface{}) {
 
 	fmt.Println(message...)
 
