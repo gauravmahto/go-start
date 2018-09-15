@@ -5,66 +5,34 @@ import (
 	"gmahto.local/utils"
 )
 
-// Action constants
-const (
-	Enter  = "enter"
-	Exit   = "exit"
-	Before = "before"
-	After  = "after"
-)
-
-func getActionMsg(action, name string) (message string) {
-
-	switch action {
-
-	case Enter:
-		message = "Enter #" + name
-
-	case Exit:
-		message = "Exit #" + name
-
-	case Before:
-		message = "Before #" + name
-
-	case After:
-		message = "After #" + name
-
-	default:
-		message = "-----------------"
-
-	}
-
-	return
-
-}
-
+// Entry point.
 func main() {
 
 	var message, formalMsg = greeting.CreateMessages("Gaurav")
-	// a, b := 1, 2 // Declaration and assignment.
 
 	updateMsg := true
 
-	if msg := getActionMsg(Before, "updateMessage"); updateMsg {
+	if msg := utils.GetActionMsg(utils.ActionBefore, "updateMessage"); updateMsg {
 
 		utils.Line(msg)
 
 	}
 
-	greeting.PrintMessage(&message, utils.Line)
+	message.PrintMessage(utils.Line)
 
-	if msg := getActionMsg(After, "updateMessage"); updateMsg {
+	if msg := utils.GetActionMsg(utils.ActionAfter, "updateMessage"); updateMsg {
 
 		utils.Line(msg)
 
-		greeting.UpdateMessage(&message)
+		message.UpdateMessage("Bye!")
 
 	}
 
-	greeting.PrintMessage(&message, utils.Line)
+	message.PrintMessage(utils.Line)
 
-	// greeting.PrintMessageNTimes(&message, utils.Line, 1)
+	// message.PrintMessageNTimes(utils.Line, 1)
 
-	greeting.PrintMessages([]*greeting.Salutation{&message, &formalMsg}, utils.Line)
+	messages := greeting.Messages{message, formalMsg}
+	greeting.PrintMessages(messages, utils.Line)
 
 }
