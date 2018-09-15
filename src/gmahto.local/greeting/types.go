@@ -1,4 +1,4 @@
-package main
+package greeting
 
 // Salutation A greeting type.
 type Salutation struct {

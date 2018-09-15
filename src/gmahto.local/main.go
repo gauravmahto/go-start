@@ -1,7 +1,8 @@
 package main
 
 import (
-	"gmahto.local/print"
+	"gmahto.local/greeting"
+	"gmahto.local/utils"
 )
 
 // Action constants
@@ -11,67 +12,6 @@ const (
 	Before = "before"
 	After  = "after"
 )
-
-const (
-	informal = "informal"
-	formal   = "formal"
-)
-
-func createMessages(name string) (message, formalMsg Salutation) {
-
-	// var greetings map[string]string
-	// greetings = make(map[string]string)
-	// greetings[informal] = "Hi!"
-	// greetings[formal] = "Hello!"
-
-	greetings := map[string]string{
-		informal: "Hi!",
-		formal:   "Hello!",
-	}
-
-	message = Salutation{name: name, greeting: greetings[informal]}
-
-	formalMsg = Salutation{name, greetings[formal]}
-
-	return
-
-}
-
-func updateMessage(message *Salutation) {
-
-	// *message = Salutation{name: "Gaurav", greeting: "Bye!"}
-
-	message.greeting = "Bye!"
-
-	// fmt.Println(*message, a, b)
-
-}
-
-func printMessage(message *Salutation, printer print.Printer) {
-
-	printer(message.greeting, message.name)
-
-}
-
-func printMessages(messages []*Salutation, printer print.Printer) {
-
-	for _, message := range messages {
-
-		printer(message.greeting, message.name)
-
-	}
-
-}
-
-func printMessageNTimes(message *Salutation, printer print.Printer, times int) {
-
-	for i := 0; i < times; i++ {
-
-		printer(message.greeting, message.name)
-
-	}
-
-}
 
 func getActionMsg(action, name string) (message string) {
 
@@ -100,31 +40,31 @@ func getActionMsg(action, name string) (message string) {
 
 func main() {
 
-	var message, formalMsg = createMessages("Gaurav")
+	var message, formalMsg = greeting.CreateMessages("Gaurav")
 	// a, b := 1, 2 // Declaration and assignment.
 
 	updateMsg := true
 
 	if msg := getActionMsg(Before, "updateMessage"); updateMsg {
 
-		print.Line(msg)
+		utils.Line(msg)
 
 	}
 
-	printMessage(&message, print.Line)
+	greeting.PrintMessage(&message, utils.Line)
 
 	if msg := getActionMsg(After, "updateMessage"); updateMsg {
 
-		print.Line(msg)
+		utils.Line(msg)
 
-		updateMessage(&message)
+		greeting.UpdateMessage(&message)
 
 	}
 
-	printMessage(&message, print.Line)
+	greeting.PrintMessage(&message, utils.Line)
 
-	// printMessageNTimes(&message, print.Line, 1)
+	// greeting.PrintMessageNTimes(&message, utils.Line, 1)
 
-	printMessages([]*Salutation{&message, &formalMsg}, print.Line)
+	greeting.PrintMessages([]*greeting.Salutation{&message, &formalMsg}, utils.Line)
 
 }
