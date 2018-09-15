@@ -1,20 +1,22 @@
 package print
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // Printer Printer type.
-type Printer func(...string)
+type Printer func(...interface{})
 
 // Print Prints a message.
-func Print(message ...string) {
+func Print(message ...interface{}) {
 
-	fmt.Print(message)
+	fmt.Print(message...)
 
 }
 
-// PrintLine Prints a message on a new line.
-func PrintLine(message ...string) {
+// Line Prints a message on a new line.
+func Line(message ...interface{}) {
 
-	fmt.Println(message)
+	fmt.Println(message...)
 
 }

@@ -1,6 +1,8 @@
 package main
 
-import "gmahto.local/print"
+import (
+	"gmahto.local/print"
+)
 
 // Action constants
 const (
@@ -105,24 +107,24 @@ func main() {
 
 	if msg := getActionMsg(Before, "updateMessage"); updateMsg {
 
-		print.PrintLine(msg)
+		print.Line(msg)
 
 	}
 
-	printMessage(&message, print.PrintLine)
+	printMessage(&message, print.Line)
 
 	if msg := getActionMsg(After, "updateMessage"); updateMsg {
 
-		print.PrintLine(msg)
+		print.Line(msg)
 
 		updateMessage(&message)
 
 	}
 
-	printMessage(&message, print.PrintLine)
+	printMessage(&message, print.Line)
 
-	// printMessageNTimes(&message, print.PrintLine, 1)
+	// printMessageNTimes(&message, print.Line, 1)
 
-	printMessages([]*Salutation{&message, &formalMsg}, print.PrintLine)
+	printMessages([]*Salutation{&message, &formalMsg}, print.Line)
 
 }
