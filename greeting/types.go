@@ -1,7 +1,7 @@
 package greeting
 
 import (
-	"gmahto.local/utils"
+	"github.com/gauravmahto/go-start/utils"
 )
 
 // Salutation A greeting type.

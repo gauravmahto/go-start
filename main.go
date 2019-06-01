@@ -1,8 +1,8 @@
 package main
 
 import (
-	"gmahto.local/greeting"
-	"gmahto.local/utils"
+	"github.com/gauravmahto/go-start/greeting"
+	"github.com/gauravmahto/go-start/utils"
 )
 
 // Entry point.
